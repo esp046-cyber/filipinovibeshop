@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibe Codes PH</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 1%;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #FCD116, #CE1126);
+            padding: 15px 1%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '⭐';
+            position: absolute;
+            font-size: 100px;
+            opacity: 0.1;
+            left: -20px;
+            top: -30px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .header::after {
+            content: '☀️';
+            position: absolute;
+            font-size: 80px;
+            opacity: 0.1;
+            right: -10px;
+            bottom: -20px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            font-size: 18px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 5px;
+        }
+
+        .tagline {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+        }
+
+        .nav {
+            display: flex;
+            background: #fff;
+            border-bottom: 2px solid #f0f0f0;
+            overflow-x: auto;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: white;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-btn.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+            background: #f8f9ff;
+        }
+
+        .content {
+            padding: 1%;
+        }
+
+        .category {
+            display: none;
+        }
+
+        .category.active {
+            display: block;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 12px 1%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .product-price {
+            background: #FCD116;
+            color: #CE1126;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .product-body {
+            padding: 12px 1%;
+        }
+
+        .product-desc {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .product-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .feature-tag {
+            background: #f0f0f0;
+            padding: 4px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            color: #555;
+        }
+
+        .buy-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .buy-btn:active {
+            transform: scale(0.95);
+        }
+
+        .promo-banner {
+            background: linear-gradient(135deg, #FCD116, #f39c12);
+            padding: 12px 1%;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+        }
+
+        .promo-text {
+            font-size: 12px;
+            color: #CE1126;
+            font-weight: bold;
+        }
+
+        .footer {
+            background: #667eea;
+            padding: 15px 1%;
+            text-align: center;
+        }
+
+        .footer-text {
+            font-size: 11px;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-icon {
+            width: 35px;
+            height: 35px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .social-icon:active {
+            transform: scale(0.9);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🇵🇭 Vibe Codes PH</h1>
+            <div class="tagline">Pambansang Code Shop mo!</div>
+        </div>
+
+        <div class="nav">
+            <button class="nav-btn active" onclick="showCategory('games')">🎮 Games</button>
+            <button class="nav-btn" onclick="showCategory('apps')">📱 Apps</button>
+            <button class="nav-btn" onclick="showCategory('load')">💰 Load</button>
+        </div>
+
+        <div class="content">
+            <div class="promo-banner">
+                <div class="promo-text">🔥 SWAK SA BULSA! Mura at Mabilis! 🔥</div>
+            </div>
+
+            <div id="games" class="category active">
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-title">Mobile Legends Diamonds</div>
+                        <div class="product-price">₱50+</div>
+                    </div>
+                    <div class="product-body">
+                        <div class="product-desc">Para sa mga tunay na ML warriors! Bili na ng diamonds at flex sa squad!</div>
+                        <div class="product-features">
+                            <span class="feature-tag">⚡ Instant</span>
+                            <span class="feature-tag">🛡️ Secure</span>
+                            <span class="feature-tag">🎁 Bonus</span>
+                        </div>
+                        <button class="buy-btn" onclick="orderNow('ML Diamonds')">BILI NA! 💎</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-title">Genshin Impact Genesis</div>
+                        <div class="product-price">₱60+</div>
+                    </div>
+                    <div class="product-body">
+                        <div class="product-desc">Gacha time! Kuha ng pang-pull sa mga limited characters!</div>
+                        <div class="product-features">
+                            <span class="feature-tag">⚡ Fast</span>
+                            <span class="feature-tag">💯 Legit</span>
+                            <span class="feature-tag">🌟 Best Price</span>
+                        </div>
+                        <button class="buy-btn" onclick="orderNow('Genshin')">ORDER NOW! ✨</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-title">CODM CP</div>
+                        <div class="product-price">₱55+</div>
+                    </div>
+                    <div class="product-body">
+                        <div class="product-desc">COD Mobile CP! Para sa bagong skins at battle pass!</div>
+                        <div class="product-features">
+                            <span class="feature-tag">🎯 Verified</span>
+                            <span class="feature-tag">⚡ Quick</span>
+                            <span class="feature-tag">💪 Sulit</span>
+                        </div>
+                        <button class="buy-btn" onclick="orderNow('CODM')">GET IT! 🔫</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="apps" class="category">
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-title">Netflix Premium</div>
+                        <div class="product-price">₱99+</div>
+                    </div>
+                    <div class="product-body">
+                        <div class="product-desc">Binge watch all day! Shared accounts, legit and safe!</div>
+                        <div class="product-features">
+                            <span class="feature-tag">📺 HD Quality</span>
+                            <span class="feature-tag">👥 Shared</span>
+                            <span class="feature-tag">🔐 Private</span>
+                        </div>
+                        <button class="buy-btn" onclick="orderNow('Netflix')">SUBSCRIBE! 🎬</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-title">Spotify Premium</div>
+                        <div class="product-price">₱89+</div>
+                    </div>
+                    <div class="product-body">
+                        <div class="product-desc">Music on repeat! No ads, offline mode, walang tigil!</div>
+                        <div class="product-features">
+                            <span class="feature-tag">🎵 No Ads</span>
+                            <span class="feature-tag">📱 Offline</span>
+                            <span class="feature-tag">✨ Premium</span>
+                        </div>
+                        <button class="buy-btn" onclick="orderNow('Spotify')">AVAIL NOW! 🎶</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-title">YouTube Premium</div>
+                        <div class="product-price">₱95+</div>
+                    </div>
+                    <div class="product-body">
+                        <div class="product-desc">Walang ads! Background play pa! Worth it talaga!</div>
+                        <div class="product-features">
+                            <span class="feature-tag">🚫 Ad-Free</span>
+                            <span class="feature-tag">⬇️ Download</span>
+                            <span class="feature-tag">🎧 Background</span>
+                        </div>
+                        <button class="buy-btn" onclick="orderNow('YouTube')">GET PREMIUM! 📺</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="load" class="category">
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-title">Globe / TM Load</div>
+                        <div class="product-price">₱10+</div>
+                    </div>
+                    <div class="product-body">
+                        <div class="product-desc">Regular load, promo load, lahat meron! Instant send!</div>
+                        <div class="product-features">
+                            <span class="feature-tag">⚡ Instant</span>
+                            <span class="feature-tag">💯 Legit</span>
+                            <span class="feature-tag">📞 All Promos</span>
+                        </div>
+                        <button class="buy-btn" onclick="orderNow('Globe Load')">LOAD NOW! 📱</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-title">Smart / TNT Load</div>
+                        <div class="product-price">₱10+</div>
+                    </div>
+                    <div class="product-body">
+                        <div class="product-desc">Smart at TNT load! Mabilis at sigurado ang delivery!</div>
+                        <div class="product-features">
+                            <span class="feature-tag">🚀 Fast</span>
+                            <span class="feature-tag">✅ Verified</span>
+                            <span class="feature-tag">💰 Sulit</span>
+                        </div>
+                        <button class="buy-btn" onclick="orderNow('Smart Load')">BUY LOAD! 💸</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-title">DITO Load</div>
+                        <div class="product-price">₱10+</div>
+                    </div>
+                    <div class="product-body">
+                        <div class="product-desc">DITO users, eto na! Mura and instant delivery!</div>
+                        <div class="product-features">
+                            <span class="feature-tag">⚡ Quick</span>
+                            <span class="feature-tag">🎯 Accurate</span>
+                            <span class="feature-tag">💪 Mura</span>
+                        </div>
+                        <button class="buy-btn" onclick="orderNow('DITO Load')">ORDER! 📲</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-text">💬 Message us para mag-order!</div>
+            <div class="footer-text">Trusted since 2025 🇵🇭</div>
+            <div class="social-icons">
+                <div class="social-icon" onclick="contact('fb')">📘</div>
+                <div class="social-icon" onclick="contact('messenger')">💬</div>
+                <div class="social-icon" onclick="contact('viber')">📞</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // IMPORTANTE: I-update mo yung numero at details mo dito!
+        const WHATSAPP_NUMBER = '639289258127'; // Your WhatsApp number
+        const FACEBOOK_SHARE_LINK = 'https://www.facebook.com/share/1aAGo1ArcL/?mibextid=wwXIfr'; // Your FB link
+        const SHOP_NAME = 'Vibe Codes PH';
+
+        function showCategory(cat) {
+            const cats = ['games', 'apps', 'load'];
+            const btns = document.querySelectorAll('.nav-btn');
+            
+            cats.forEach(c => {
+                document.getElementById(c).classList.remove('active');
+            });
+            
+            btns.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.getElementById(cat).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function orderNow(product) {
+            // Show order options
+            const choice = confirm(
+                '🛒 ORDER: ' + product + '\n\n' +
+                'Pumili ng paraan ng pag-order:\n\n' +
+                'OK = WhatsApp 📱\n' +
+                'Cancel = Messenger 💬'
+            );
+
+            if (choice) {
+                orderViaWhatsApp(product);
+            } else {
+                orderViaMessenger(product);
+            }
+        }
+
+        function orderViaWhatsApp(product) {
+            const message = encodeURIComponent(
+                `Hi ${SHOP_NAME}! 👋\n\n` +
+                `Gusto ko pong mag-order ng:\n` +
+                `📦 ${product}\n\n` +
+                `Pakisend po ng details at payment instructions. Salamat! 🙏`
+            );
+            
+            // Opens WhatsApp with pre-filled message
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
+        }
+
+        function orderViaMessenger(product) {
+            // Opens your Facebook page directly
+            window.open(FACEBOOK_SHARE_LINK, '_blank');
+        }
+
+        function contact(platform) {
+            if (platform === 'fb') {
+                // Opens your Facebook page
+                window.open(FACEBOOK_SHARE_LINK, '_blank');
+            } else if (platform === 'messenger') {
+                // Opens your Facebook page
+                window.open(FACEBOOK_SHARE_LINK, '_blank');
+            } else if (platform === 'viber') {
+                // Opens WhatsApp
+                const message = encodeURIComponent(`Hi ${SHOP_NAME}! May tanong po ako. 😊`);
+                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
+            }
+        }
+    </script>
+</body>
+</html>
